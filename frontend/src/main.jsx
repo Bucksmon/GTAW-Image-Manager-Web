@@ -185,9 +185,9 @@ function App() {
               <p>The bot uploads the image, reuses the uploader's private thread and posts direct URLs plus grouped BBCode for each host.</p>
             </article>
           </div>
-        </section>
+        </section></RevealOnScroll>
 
-        <section id="features" className="features section">
+        <RevealOnScroll><section id="features" className="features section">
           <div className="section-heading">
             <div className="eyebrow">MADE FOR THE FLOW</div>
             <h2>Everything happens where your screenshots already live.</h2>
@@ -227,7 +227,7 @@ function App() {
           </div>
         </section>
 
-        <section className="demo section">
+        <section className="demo section lazy-section">
           <div className="demo-panel">
             <div className="demo-copy">
               <div className="eyebrow">THE DISCORD FLOW</div>
@@ -270,9 +270,9 @@ function App() {
               </div>
             </div>
           </div>
-        </section>
+        </section></RevealOnScroll>
 
-        <section id="faq" className="faq section">
+        <RevealOnScroll><section id="faq" className="faq section lazy-section"> className="faq section">
           <div className="section-heading">
             <div className="eyebrow">FAQ</div>
             <h2>Everything you need to know.</h2>
@@ -294,7 +294,7 @@ function App() {
               </button>
             ))}
           </div>
-        </section>
+        </section></RevealOnScroll>
       </main>
 
       <footer className="footer">

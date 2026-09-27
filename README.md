@@ -1,16 +1,21 @@
 # GTAW Image Manager — Web
 
-Public landing page for GTAW Image Manager.
+Public landing and install page for GTAW Image Manager.
 
-The product workflow is Discord-first:
+## Product workflow
 
-1. Add the bot to a Discord server and run `/setup`.
-2. Select exactly one screenshot approval channel and exactly one server role allowed to approve screenshots.
-3. Users post screenshots in that channel.
-4. An approver reacts with ✅.
-5. The bot uploads the approved images to the private backend and posts the resulting URLs, BBCode and Markdown in the uploader's private Discord thread.
+The product is Discord-first and uses Discord HTTP Interactions:
 
-The public website does **not** contain the backend, bot, database configuration or provider credentials.
+1. Add the application to a Discord server.
+2. A member with **Manage Server** runs `/setup`.
+3. Select exactly one screenshot approval channel and exactly one approver role.
+4. Users post PNG, JPEG, WebP or GIF screenshots in that channel.
+5. An authorized approver right-clicks a screenshot and chooses **Apps → Approve Screenshot**.
+6. The serverless backend validates the interaction and processes the image.
+7. The bot posts hosted image URLs and grouped BBCode in the uploader's private Discord thread.
+8. Approved screenshots are marked with a ☑️ reaction, and duplicate approvals are handled gracefully.
+
+There is no separate upload dashboard and no persistent Discord Gateway worker in the current architecture.
 
 ## Deploy
 
@@ -36,4 +41,8 @@ The only public build variable is:
 
 `VITE_DISCORD_CLIENT_ID`
 
-The Discord application ID is not a secret. Bot tokens, API keys, MongoDB credentials and image-provider credentials belong in the private backend/bot deployment.
+The Discord application ID is not a secret. Bot tokens, API keys, MongoDB credentials and image-provider credentials belong in the private serverless backend deployment.
+
+## Repository
+
+The frontend is intentionally a static public site. Discord interactions, image processing, hosting-provider calls and database operations are handled by the private backend.

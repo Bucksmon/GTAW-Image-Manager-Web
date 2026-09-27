@@ -187,7 +187,7 @@ function App() {
           </div>
         </section></RevealOnScroll>
 
-        <RevealOnScroll><section id="features" className="features section">
+        <RevealOnScroll><section id="features" className="features section lazy-section">
           <div className="section-heading">
             <div className="eyebrow">MADE FOR THE FLOW</div>
             <h2>Everything happens where your screenshots already live.</h2>
@@ -225,9 +225,9 @@ function App() {
               <p>Discord interactions are handled over HTTPS by the backend. There is no always-on Gateway worker to keep running.</p>
             </article>
           </div>
-        </section>
+        </section></RevealOnScroll>
 
-        <section className="demo section lazy-section">
+        <RevealOnScroll><section className="demo section lazy-section">
           <div className="demo-panel">
             <div className="demo-copy">
               <div className="eyebrow">THE DISCORD FLOW</div>
@@ -272,7 +272,7 @@ function App() {
           </div>
         </section></RevealOnScroll>
 
-        <RevealOnScroll><section id="faq" className="faq section lazy-section"> className="faq section">
+        <RevealOnScroll><section id="faq" className="faq section lazy-section">
           <div className="section-heading">
             <div className="eyebrow">FAQ</div>
             <h2>Everything you need to know.</h2>

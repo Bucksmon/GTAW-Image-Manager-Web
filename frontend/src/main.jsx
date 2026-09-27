@@ -31,6 +31,40 @@ function Icon({ name, size = 20 }) {
   );
 }
 
+function RevealOnScroll({ children, className = "" }) {
+  const [visible, setVisible] = useState(false);
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(node);
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={`reveal-on-scroll ${visible ? "is-visible" : ""} ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 function App() {
   const [copied, setCopied] = useState(false);
   const [faq, setFaq] = useState(0);
@@ -122,7 +156,7 @@ function App() {
           </div>
         </section>
 
-        <section id="how" className="how section">
+        <RevealOnScroll><section id="how" className="how section lazy-section">
           <div className="section-heading">
             <div className="eyebrow">HOW IT WORKS</div>
             <h2>From screenshot to forum link in seconds.</h2>
@@ -130,21 +164,21 @@ function App() {
           </div>
 
           <div className="steps">
-            <article className="step">
+            <article className="step scroll-card">
               <div className="step-number">01</div>
               <div className="step-icon"><Icon name="discord" size={23}/></div>
               <h3>Post your screenshot</h3>
               <p>Run <code>/setup</code> once, choose the server's approval channel and approver role, then post your PNG, JPEG, WebP or GIF.</p>
             </article>
 
-            <article className="step featured-step">
+            <article className="step featured-step scroll-card">
               <div className="step-number">02</div>
               <div className="step-icon"><Icon name="cursor" size={23}/></div>
               <h3>Approve the message</h3>
               <p>An authorized approver right-clicks the screenshot and selects <strong>Apps → Approve Screenshot</strong>. No reaction trigger or dashboard required.</p>
             </article>
 
-            <article className="step">
+            <article className="step scroll-card">
               <div className="step-number">03</div>
               <div className="step-icon"><Icon name="link" size={23}/></div>
               <h3>Get the links</h3>
@@ -160,32 +194,32 @@ function App() {
           </div>
 
           <div className="feature-grid">
-            <article>
+            <article className="scroll-card">
               <span className="feature-icon"><Icon name="discord" size={20}/></span>
               <h3>Discord-first</h3>
               <p>No upload dashboard for the core workflow. Post, approve and receive your links without leaving Discord.</p>
             </article>
-            <article>
+            <article className="scroll-card">
               <span className="feature-icon"><Icon name="cursor" size={20}/></span>
               <h3>Controlled approvals</h3>
               <p>Each server chooses one approval channel and one role. Only authorized members can approve screenshots.</p>
             </article>
-            <article>
+            <article className="scroll-card">
               <span className="feature-icon"><Icon name="link" size={20}/></span>
               <h3>Forum-ready output</h3>
               <p>Get direct image URLs and grouped BBCode in a clean format that is easy to paste into GTAW forum posts.</p>
             </article>
-            <article>
+            <article className="scroll-card">
               <span className="feature-icon"><Icon name="lock" size={20}/></span>
               <h3>Private by design</h3>
               <p>Results go to the uploader's private Discord thread. Provider credentials and database access stay server-side.</p>
             </article>
-            <article>
+            <article className="scroll-card">
               <span className="feature-icon"><Icon name="server" size={20}/></span>
               <h3>Server-specific configuration</h3>
               <p>Every server stores its own approval channel and role. Nothing is hard-coded for one community.</p>
             </article>
-            <article>
+            <article className="scroll-card">
               <span className="feature-icon"><Icon name="shield" size={20}/></span>
               <h3>Serverless backend</h3>
               <p>Discord interactions are handled over HTTPS by the backend. There is no always-on Gateway worker to keep running.</p>
